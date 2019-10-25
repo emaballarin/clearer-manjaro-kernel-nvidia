@@ -1,0 +1,35 @@
+diff --git a/kernel/Kbuild b/kernel/Kbuild
+index 1e79d0b..c587f7e 100644
+--- a/kernel/Kbuild
++++ b/kernel/Kbuild
+@@ -27,10 +27,17 @@
+ # $(2): The CFLAGS to add for those object files.
+ #
+ 
++ifeq ($(shell [ $(VERSION) -gt 5 ] || [ $(VERSION) -eq 5 -a $(PATCHLEVEL) -gt 3 ]; echo $$? ),0)
++ASSIGN_PER_OBJ_CFLAGS = \
++ $(foreach _cflags_variable, \
++ $(addprefix CFLAGS_,$(1)), \
++ $(eval $(_cflags_variable) += $(2)))
++else
+ ASSIGN_PER_OBJ_CFLAGS = \
+  $(foreach _cflags_variable, \
+  $(addprefix CFLAGS_,$(notdir $(1))), \
+  $(eval $(_cflags_variable) += $(2)))
++endif
+ 
+ 
+ #
+diff --git a/kernel/conftest.sh b/kernel/conftest.sh
+index c00c826..40c54f6 100755
+--- a/kernel/conftest.sh
++++ b/kernel/conftest.sh
+@@ -3585,7 +3585,7 @@ case "$5" in
+         TAB='	'
+ 
+         if [ -f "$OUTPUT/Module.symvers" ] && \
+-             grep -e "^[^${TAB}]*${TAB}[^${TAB}]*${TAB}vmlinux" \
++             grep -e "^[^${TAB}]*${TAB}[^${TAB}]*.*${TAB}vmlinux" \
+                      "$OUTPUT/Module.symvers" >/dev/null 2>&1; then
+             exit 0
+         fi

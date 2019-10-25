@@ -24,7 +24,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('e825dfe84509f899776530b8e42dc98bfadda5503cefe72671f1cb4c50572318')
+sha256sums=('c77f80cda06f8fede556843a7e39627abce75005742ff77f0af5fd888227c36b')
 sha256sums_x86_64=('51445f50e55edcb0169cccc625a2f72c861a9247e06ddacbc95d8cc1a62157f9')
 source=('kernel-5.4.patch')
 
