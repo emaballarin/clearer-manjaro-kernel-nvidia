@@ -23,9 +23,11 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
+    'conftest.patch')
 sha256sums=('c77f80cda06f8fede556843a7e39627abce75005742ff77f0af5fd888227c36b')
-sha256sums_x86_64=('51445f50e55edcb0169cccc625a2f72c861a9247e06ddacbc95d8cc1a62157f9')
+sha256sums_x86_64=('51445f50e55edcb0169cccc625a2f72c861a9247e06ddacbc95d8cc1a62157f9'
+                   'c7c158412c7e53fab86571455e60e7d8ac497a344634244d5ebafc2734af6ed2')
 source=('kernel-5.4.patch')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
@@ -34,9 +36,10 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    patch -p1 -i $srcdir/conftest.patch
+
     # Fix compile problem with 5.4
     (patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-5.4.patch)
-
 }
 
 build() {
