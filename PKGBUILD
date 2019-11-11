@@ -10,7 +10,7 @@ _extramodules=extramodules-5.4-MANJARO
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.31
-pkgrel=0.7
+pkgrel=0.8
 pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -18,6 +18,7 @@ depends=("$_linuxprefix" "nvidia-440xx-utils=${pkgver}")
 makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 provides=("$_pkgname=$pkgver")
+replaces=("$_linuxprefix-$_pkgname")
 conflicts=('nvidia-340xx' 'nvidia-390xx' 'nvidia-418xx' 'nvidia-430xx' 'nvidia-435xx')
 license=('custom')
 install=nvidia.install
