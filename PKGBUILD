@@ -9,7 +9,7 @@ _linuxprefix=linux54
 _extramodules=extramodules-5.4-MANJARO
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
-pkgver=440.26
+pkgver=440.31
 pkgrel=0.7
 pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
@@ -24,9 +24,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums=('c77f80cda06f8fede556843a7e39627abce75005742ff77f0af5fd888227c36b')
-sha256sums_x86_64=('51445f50e55edcb0169cccc625a2f72c861a9247e06ddacbc95d8cc1a62157f9')
-source=('kernel-5.4.patch')
+sha256sums_x86_64=('daa58629a42632e47617c701b3da93d4bc69d0b983514f78329f0784dd4736df')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -34,9 +32,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    # Fix compile problem with 5.4
-    (patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-5.4.patch)
-
 }
 
 build() {
