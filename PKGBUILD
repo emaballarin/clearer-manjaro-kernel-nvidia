@@ -9,8 +9,8 @@ _linuxprefix=linux54
 _extramodules=extramodules-5.4-MANJARO
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
-pkgver=440.36
-pkgrel=2
+pkgver=440.44
+pkgrel=1
 pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -25,7 +25,7 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums_x86_64=('1d25b67e70e59db0d0604a1ddbffbd3fe42cd6bd8184630b9807ac457f734eab')
+sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
