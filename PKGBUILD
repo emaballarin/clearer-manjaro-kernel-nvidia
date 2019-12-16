@@ -1,7 +1,3 @@
-##############################
-# Not working with Kernel 5.5
-##############################
-
 # Based on the file created for Arch Linux by:
 # Maintainer : Thomas Baechler <thomas@archlinux.org>
 
@@ -29,7 +25,9 @@ install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+sha256sums=('b46333bf617044088bb5223c25fef6c01a885ea08a095df5473e5257d3082e39')
 sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f')
+source=('kernel-5.5.patch')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -37,6 +35,9 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    # Fix compile problem with 5.5
+    (patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-5.5.patch)
+    
 }
 
 build() {
