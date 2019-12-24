@@ -1,12 +1,17 @@
-# Based on the file created for Arch Linux by:
-# Maintainer : Thomas Baechler <thomas@archlinux.org>
-
+# Based on the file created for Manjaro Linux by:
 # Maintainer: Philip Müller <philm@manjaro.org>
 # Maintainer: Bernhard Landauer <bernhard@manjaro.org>
 # Maintainer: Helmut Stult <helmut@manjaro.org>
 
-_linuxprefix=linux54
-_extramodules=extramodules-5.4-MANJARO
+# Based on the file created for Arch Linux by:
+# Maintainer : Thomas Baechler <thomas@archlinux.org>
+
+# Maintainer: Emanuele Ballarin (Clearer Manjaro x86_64) <emanuele@ballarin.cc>
+# And many other contributors (patches, suggestions, development, testing, ...)
+
+_linuxbaseprefix=linux54
+_linuxprefix=linux54-clearer
+_extramodules=extramodules-5.4-clearer
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.44
@@ -15,17 +20,19 @@ pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
 url="http://www.nvidia.com/"
 depends=("$_linuxprefix" "nvidia-440xx-utils=${pkgver}")
-makedepends=("$_linuxprefix-headers")
+makedepends=("$_linuxbaseprefix-headers-clearer")
 groups=("$_linuxprefix-extramodules")
 replaces=("$_linuxprefix-$_pkgname")
 provides=("$_pkgname=$pkgver")
 conflicts=("$_linuxprefix-nvidia-340xx" "$_linuxprefix-nvidia-390xx" "$_linuxprefix-nvidia-418xx" "$_linuxprefix-nvidia-430xx" "$_linuxprefix-nvidia-435xx")
 license=('custom')
-install=nvidia.install
+install=nvidia-clearer.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
-sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f')
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
+                "nvidia-performance-trailing.patch")
+sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f'
+                  'SKIP')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -33,12 +40,14 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    patch -Np1 -i ../nvidia-performance-trailing.patch
+
 }
 
 build() {
     _kernver="$(cat /usr/lib/modules/${_extramodules}/version)"
     cd "${_pkg}"/kernel
-    make SYSSRC=/usr/lib/modules/"${_kernver}/build" module
+    make -j12 SYSSRC=/usr/lib/modules/"${_kernver}/build" module
 }
 
 package() {
@@ -53,5 +62,5 @@ package() {
             "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
     fi
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
-    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia.install"
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia-clearer.install"
 }
