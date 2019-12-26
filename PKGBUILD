@@ -9,9 +9,8 @@
 # Maintainer: Emanuele Ballarin (Clearer Manjaro x86_64) <emanuele@ballarin.cc>
 # And many other contributors (patches, suggestions, development, testing, ...)
 
-_linuxbaseprefix=linux54
-_linuxprefix=linux54-clearer
-_extramodules=extramodules-5.4-clearer
+_linuxprefix=linux54
+_extramodules=extramodules-5.4-CLEARER
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.44
@@ -20,7 +19,7 @@ pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
 url="http://www.nvidia.com/"
 depends=("$_linuxprefix" "nvidia-440xx-utils=${pkgver}")
-makedepends=("$_linuxbaseprefix-headers-clearer")
+makedepends=("$_linuxprefix-clearer-headers")
 groups=("$_linuxprefix-extramodules")
 replaces=("$_linuxprefix-$_pkgname")
 provides=("$_pkgname=$pkgver")
