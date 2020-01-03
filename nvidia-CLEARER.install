@@ -8,7 +8,7 @@ post_upgrade() {
     EXTRAMODULES='extramodules-5.4-CLEARER'
     depmod $(cat /usr/lib/modules/$EXTRAMODULES/version)
     if  [ "$(vercmp $2 310.19-2)" -lt 0 ]; then
-        echo 'If your card is from the 7xxx series or earlier, install nvidia-304xx-clearer'
+        echo 'If your card is from the 7xxx series or earlier, install nvidia-304xx-CLEARER'
     fi
 }
 

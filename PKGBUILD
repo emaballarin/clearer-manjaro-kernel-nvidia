@@ -9,23 +9,24 @@
 # Maintainer: Emanuele Ballarin (Clearer Manjaro x86_64) <emanuele@ballarin.cc>
 # And many other contributors (patches, suggestions, development, testing, ...)
 
-_linuxprefix=linux54
+_linuxprefix=linux54-CLEARER
 _extramodules=extramodules-5.4-CLEARER
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.44
 pkgrel=6
-pkgdesc="NVIDIA drivers for linux."
+_CLEARERrel=5
+pkgdesc="NVIDIA drivers for linux. Clearer Manjaro kernel."
 arch=('x86_64')
 url="http://www.nvidia.com/"
 depends=("$_linuxprefix" "nvidia-440xx-utils=${pkgver}")
-makedepends=("$_linuxprefix-clearer-headers")
+makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 replaces=("$_linuxprefix-$_pkgname")
 provides=("$_pkgname=$pkgver")
 conflicts=("$_linuxprefix-nvidia-340xx" "$_linuxprefix-nvidia-390xx" "$_linuxprefix-nvidia-418xx" "$_linuxprefix-nvidia-430xx" "$_linuxprefix-nvidia-435xx")
 license=('custom')
-install=nvidia-clearer.install
+install=nvidia-CLEARER.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
@@ -61,5 +62,5 @@ package() {
             "${pkgdir}/usr/lib/modules/${_extramodules}/nvidia-uvm.ko"
     fi
     gzip "${pkgdir}/usr/lib/modules/${_extramodules}/"*.ko
-    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia-clearer.install"
+    sed -i -e "s/EXTRAMODULES='.*'/EXTRAMODULES='${_extramodules}'/" "${startdir}/nvidia-CLEARER.install"
 }
