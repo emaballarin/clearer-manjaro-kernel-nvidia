@@ -10,7 +10,7 @@ _extramodules=extramodules-5.4-MANJARO
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.44
-pkgrel=10
+pkgrel=11
 pkgdesc="NVIDIA drivers for linux."
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -24,8 +24,10 @@ license=('custom')
 install=nvidia.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
+source=("prime.patch")
+sha256sums=('bedd55074771222bad8391c66b7022a266c135ff51d478710f7dda8708c3e9aa')
 sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f')
+source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run")
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
 
@@ -33,6 +35,7 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    patch -p1 -i '../prime.patch'
 }
 
 build() {
