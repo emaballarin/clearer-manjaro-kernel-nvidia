@@ -14,8 +14,8 @@ _extramodules=extramodules-5.4-CLEARER
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.44
-pkgrel=10
-_CLEARERrel=6
+pkgrel=12
+_CLEARERrel=9
 pkgdesc="NVIDIA drivers for linux. Clearer Manjaro kernel."
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -29,6 +29,8 @@ license=('custom')
 install=nvidia-CLEARER.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
+source=("prime.patch")
+sha256sums=('bedd55074771222bad8391c66b7022a266c135ff51d478710f7dda8708c3e9aa')
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
                 "nvidia-performance-trailing.patch")
 sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f'
@@ -40,6 +42,7 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
+    patch -p1 -i '../prime.patch'
     patch -Np1 -i ../nvidia-performance-trailing.patch
 
 }
