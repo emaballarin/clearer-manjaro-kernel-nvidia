@@ -14,7 +14,7 @@ _extramodules=extramodules-5.5-CLEARER
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
 pkgver=440.59
-pkgrel=0
+pkgrel=1
 _CLEARERrel=14
 pkgdesc="NVIDIA drivers for linux. Clearer Manjaro kernel."
 arch=('x86_64')
@@ -29,8 +29,6 @@ license=('custom')
 install=nvidia-CLEARER.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
-#source=("kernel-5.5.patch")
-#sha256sums=('SKIP')
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
                 "nvidia-performance-trailing.patch")
 sha256sums_x86_64=('SKIP'
@@ -42,8 +40,6 @@ prepare() {
     sh "${_pkg}.run" --extract-only
     cd "${_pkg}"
     # patches here
-    # Fix compile problem with 5.5
-#    (patch -p1 --no-backup-if-mismatch -i "$srcdir"/kernel-5.5.patch)
 
     patch -Np1 -i ../nvidia-performance-trailing.patch
 
