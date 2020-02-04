@@ -13,9 +13,9 @@ _linuxprefix=linux55-CLEARER
 _extramodules=extramodules-5.5-CLEARER
 pkgname=$_linuxprefix-nvidia-440xx
 _pkgname=nvidia
-pkgver=440.44
-pkgrel=1
-_CLEARERrel=13
+pkgver=440.59
+pkgrel=0
+_CLEARERrel=14
 pkgdesc="NVIDIA drivers for linux. Clearer Manjaro kernel."
 arch=('x86_64')
 url="http://www.nvidia.com/"
@@ -23,17 +23,17 @@ depends=("$_linuxprefix" "nvidia-440xx-utils=${pkgver}")
 makedepends=("$_linuxprefix-headers")
 groups=("$_linuxprefix-extramodules")
 replaces=("$_linuxprefix-$_pkgname")
-provides=("$_pkgname=$pkgver")
+provides=("$_pkgname=$pkgver" "$_pkgname=440.44")
 conflicts=("$_linuxprefix-nvidia-340xx" "$_linuxprefix-nvidia-390xx" "$_linuxprefix-nvidia-418xx" "$_linuxprefix-nvidia-430xx" "$_linuxprefix-nvidia-435xx" "nvidia-340xx" "nvidia-390xx" "nvidia-418xx" "nvidia-430xx" "nvidia-435xx")
 license=('custom')
 install=nvidia-CLEARER.install
 options=(!strip)
 durl="http://us.download.nvidia.com/XFree86/Linux-x86"
 source=("kernel-5.5.patch")
-sha256sums=('b46333bf617044088bb5223c25fef6c01a885ea08a095df5473e5257d3082e39')
+sha256sums=('SKIP')
 source_x86_64=("${durl}_64/${pkgver}/NVIDIA-Linux-x86_64-${pkgver}-no-compat32.run"
                 "nvidia-performance-trailing.patch")
-sha256sums_x86_64=('794fdfc8e65c203ae482f59df7e55050ddcf0a11af2a95eaa1a10c7d48ec7e0f'
+sha256sums_x86_64=('SKIP'
                   'SKIP')
 
 [[ "$CARCH" = "x86_64" ]] && _pkg="NVIDIA-Linux-x86_64-${pkgver}-no-compat32"
